@@ -46,7 +46,7 @@ class Game {
   fireShield() {
     const shield = new Shield(
       this,
-      this.player.x + (this.player.width - 5) / 2,
+      this.player.x + this.player.width,
       this.player.y + this.player.height
     );
     this.shields.push(shield);
@@ -112,4 +112,3 @@ class Game {
     this.draw();
   }
 }
-

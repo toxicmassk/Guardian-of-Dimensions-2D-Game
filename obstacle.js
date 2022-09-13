@@ -10,12 +10,10 @@ class Obstacle {
 
   checkForIntersection(item) {
     return (
-      (item.x + item.width >= this.x &&
-        item.x <= this.width &&
-        item.y + item.height >= this.y &&
-        item.y <= this.y + this.height) ||
-      (item.x + item.width >= this.x + 55 &&
-        item.x <= item.y + item.height >= this.y + 50)
+      this.x + this.width > item.x &&
+      this.x < item.x + item.width &&
+      this.y + this.height > item.y &&
+      this.y < item.y + item.height
     );
   }
 
@@ -31,20 +29,25 @@ class Obstacle {
       this.game.player
     );
 
+    console.log(isIntersectingWithPlayer);
+
     const isIntersectingWithEdgeOfScreen = this.y > 800;
 
     if (isIntersectingWithPlayer) {
+      this.game.player.x += 50;
       this.game.score -= 1;
-      this.disappear();
-      if (isIntersectingWithEdgeOfScreen) {
-        this.disappear();
-      }
+
+      //this.disappear();
+      //if (isIntersectingWithEdgeOfScreen) {
+      // this.disappear();
+      //}
     }
     for (const shield of this.game.shields) {
       const isIntersectingWithShield = this.checkForIntersection(shield);
       if (isIntersectingWithShield) {
         this.disappear();
         shield.disappear();
+        this.game.score += 1;
       }
     }
   }
