@@ -9,20 +9,32 @@
   </head>
   <body>
     <div id="intro-screen" class="screen">
+      <h1>Guardian of Dimensions</h1>
+      <p>
+        Floating through time and space, the Guardian collects energy to be able to access 
+        one dimension after other, 
+        to spread a universal message of hope and balance to all who dwell simultaneously 
+        across Dimensions.
+        Use your arrows to collect energy to access the next dimension. Avoid the obstacles.  
+        </p>
       <button>Start Game</button>
     </div>
     <div id="game-screen" class="screen" style="display: none">
       <canvas width="1000" height="800"></canvas>
+    </div>
+    <div id="winning-screen" class="screen" style="display: none">
+      <button>Play Again</button>
     </div>
     <div id="game-over-screen" class="screen" style="display: none">
       <h1>Game Over</h1>
       <button>Restart</button>
     </div>
     <script src="shield.js"></script>
+    <script src="energy.js"></script>
     <script src="obstacle.js"></script>
     <script src="player.js"></script>
     <script src="game.js"></script>
-    
+
     <script src="script.js"></script>
   </body>
 </html>

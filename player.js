@@ -22,9 +22,6 @@ life3.src = '3life.png';
 const life4 = new Image ();
 life4.src = '4life.png';
 
-//const shieldImage = new Image ();
-//shieldImage.src = ''
-
 
 
 class Player {
@@ -32,8 +29,8 @@ class Player {
         this.game = game;
         this.x = 500;
         this.y = 711;
-        this.width = 85;
-        this.height = 85;
+        this.width = 80;
+        this.height = 80;
     }
 
     draw () {
@@ -42,7 +39,7 @@ class Player {
 
         this.game.context.drawImage(
             playerGuardianImage1, 
-            64 * (Math.floor(this.game.frame / 2) % 14),
+            64 * (Math.floor(this.game.frame / 3) % 14),
             0,
             64,
             64,
