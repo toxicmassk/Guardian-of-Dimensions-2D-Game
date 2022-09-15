@@ -2,6 +2,7 @@ const backgroundMusic = new Audio("backgroundSound.mp3");
 backgroundMusic.volume = 0.2;
 
 const shieldSound = new Audio("shieldSound.mp3");
+shieldSound.volume = 0.5;
 
 const backgroundImageGreen1 = new Image(); // starting Image
 backgroundImageGreen1.src = "GreenNebula1.png";
@@ -56,16 +57,19 @@ class Game {
 
   playLevelMusic() {
     backgroundMusic.play();
-    backgroundMusic.addEventListener("ended", () => {
-      this.currentTime = 0;
-      backgroundMusic.play();
-    }, false);
+    backgroundMusic.addEventListener(
+      "ended",
+      () => {
+        this.currentTime = 0;
+        backgroundMusic.play();
+      },
+      false
+    );
   }
 
   reset() {
     this.player = new Player(this);
     this.obstacles = [];
-    // this.shields = [];
     this.energies = [];
 
     this.score = 4;

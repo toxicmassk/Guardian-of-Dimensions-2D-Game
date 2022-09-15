@@ -25,6 +25,17 @@ energy3PurpleImage.src = "energy3purple.png";
 const energy3yellowImage = new Image();
 energy3yellowImage.src = "energy3yellow.png";
 
+const energy1Sound = new Audio ("energyball1.mp3");
+energy1Sound.volume = 0.5;
+
+const energy2Sound = new Audio ("energyball2.mp3");
+energy2Sound.volume = 0.5;
+
+const energy3Sound = new Audio ("energyball3.mp3");
+energy3Sound.volume = 0.5;
+
+
+
 const energyImageList = [
   energy1GreenImage,
   energy1PurpleImage,
@@ -71,10 +82,10 @@ class Energy {
       this.x = Math.random() * 40;
     }
     */
-    this.x = Math.random() * this.game.canvasElement.width;
-    this.y = -140;
-    this.width = 140;
-    this.height = 140;
+    this.x = Math.random() * this.game.canvasElement.width - 160;
+    this.y = -160;
+    this.width = 160;
+    this.height = 160;
     this.speed = Math.random() + 0.5 + this.game.score / 10;
     // this.speed = Math.random() + 2;
     /*
@@ -140,7 +151,7 @@ class Energy {
       if (
         this.image === energy1PurpleImage || this.image === energy2PurpleImage || this.image === energy3PurpleImage 
       ) {
-        this.game.shieldEnergy = Math.min(this.game.shieldEnergy + 1, 5);
+        this.game.shieldEnergy = Math.min(this.game.shieldEnergy + 1, 6);
       }
     }
 
