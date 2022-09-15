@@ -35,9 +35,9 @@ class Player {
   constructor(game) {
     this.game = game;
     this.x = 500;
-    this.y = 711;
-    this.width = 64;
-    this.height = 64;
+    this.y = 720;
+    this.width = 80;
+    this.height = 80;
     this.shielded = false;
   }
 

@@ -1,9 +1,20 @@
+// Music Snippets //
 const backgroundMusic = new Audio("backgroundSound.mp3");
 backgroundMusic.volume = 0.2;
 
 const shieldSound = new Audio("shieldSound.mp3");
 shieldSound.volume = 0.5;
 
+const energy1Sound = new Audio ("energyball1.mp3");
+energy1Sound.volume = 0.5;
+
+const energy2Sound = new Audio ("energyball2.mp3");
+energy2Sound.volume = 0.5;
+
+const energy3Sound = new Audio ("energyball3.mp3");
+energy3Sound.volume = 0.5;
+
+// Images Dimensions//
 const backgroundImageGreen1 = new Image(); // starting Image
 backgroundImageGreen1.src = "GreenNebula1.png";
 
@@ -31,18 +42,6 @@ backgroundImagePurple2.src = "PurpleNebula2.png";
 const backgroundImagePurple3 = new Image(); // Image after 160 points
 backgroundImagePurple3.src = "PurpleNebula3.png";
 
-const endGameImage1 = new Image(); // Image 1 Endgame
-endGameImage1.src = "endGame1.jpg";
-
-const endGameImage2 = new Image(); // Image 2 Endgame
-endGameImage2.src = "endGame2.jpg";
-
-const endGameImage3 = new Image(); // Image 3 Endgame
-endGameImage3.src = "endGame3.jpg";
-
-const endGameImage4 = new Image(); // Image 4 Endgame
-endGameImage4.src = "endGame4.jpg";
-
 class Game {
   constructor(gameScreenElement, gameOverScreenElement, winningScreen) {
     this.gameScreenElement = gameScreenElement;
@@ -54,7 +53,8 @@ class Game {
 
     this.enableControls();
   }
-
+  
+// play music // 
   playLevelMusic() {
     backgroundMusic.play();
     backgroundMusic.addEventListener(
@@ -218,15 +218,15 @@ class Game {
   }
 
   drawScore() {
-    this.context.font = "64px sans-terif";
+    this.context.font = "32px Arial, Helvetica, sans-serif";
     this.context.fillStyle = "white";
-    this.context.fillText(this.score, 64, 96);
+    this.context.fillText("Score: " + this.score, 50, 70);
   }
 
   drawShieldEnergy() {
-    this.context.font = "32px sans-terif";
+    this.context.font = "32px Arial, Helvetica, sans-serif";
     this.context.fillStyle = "white";
-    this.context.fillText("Shield Energy: " + this.shieldEnergy, 200, 96);
+    this.context.fillText("Shield Energy: " + this.shieldEnergy, 50, 110);
   }
 
   draw() {
@@ -284,6 +284,7 @@ class Game {
     this.gameOverScreenElement.style.display = "";
     this.winningScreen.style.display = "none";
     clearInterval(this.intervalId);
+    backgroundMusic.pause();
   }
 
   start() {

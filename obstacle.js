@@ -32,8 +32,8 @@ class Obstacle {
     this.x = Math.random() * this.game.canvasElement.width;
     //this.x = Math.random() * 400;
     this.y = -60;
-    this.width = 60;
-    this.height = 60;
+    this.width = 70;
+    this.height = 70;
     // this.speed = Math.random() + 1.5;
     // this.speed = Math.random() + 0.5 + this.game.score / 10;
     this.speed = Math.random() + 0.5 + this.game.frame / 2000;

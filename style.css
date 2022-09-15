@@ -51,7 +51,17 @@ body {
   padding: 20px;
   text-align: center;
 }
-
+.screen {
+    margin: 0;
+    width: 1000px;
+    height: 800px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    border: 20px;
+  }
 #instruction {
   color: rgb(245, 245, 245);
   font-size: 17px;
@@ -73,15 +83,6 @@ body {
   padding: 10px;
 }
 
-.screen {
-  width: 1000px;
-  height: 800px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 #winning-screen {
   display: flex;
   margin: 0;
@@ -94,29 +95,35 @@ body {
 }
 
 #nirvana {
-  color: rgb(176, 181, 186);
-  font-size: 50px;
-  font-family: Arial, Helvetica, sans-serif;
-  justify-content: center;
-  padding: 20px;
-  border: 20px;
-}
+    color: rgb(176, 181, 186);
+    font-size: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+    justify-content: center;
+    padding: 20px;
+    border: 20px;
+    text-align: center;
+  }
 
 #congratulation {
-  color: rgb(255, 255, 255);
-  font-size: 25px;
-  font-family: Arial, Helvetica, sans-serif;
-  justify-content: center;
-  padding: 40px;
-  text-align: center;
-}
+    color: rgb(255, 255, 255);
+    font-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+    justify-content: center;
+    padding: 20px;
+    text-align: center;
+  }
 
 #play {
-  border-radius: 50px;
-  font-size: 25px;
-  font-family: Arial, Helvetica, sans-serif;
-  background-color: rgb(176, 181, 186);
-}
+    border-radius: 10px;
+    font-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(13, 143, 130);
+    margin: 80px;
+    top: 60%;
+    border: none;
+    box-shadow: 0px 0px 2px 2px rgb(56, 18, 106);
+    padding: 10px;
+  }
 
 #game-over-screen {
   display: flex;
@@ -135,23 +142,27 @@ body {
   font-size: 25px;
   font-family: Arial, Helvetica, sans-serif;
   justify-content: center;
-  padding: 40px;
+  padding: 10px;
   text-align: center;
 }
 
 #restart {
-  border-radius: 50px;
-  font-size: 25px;
-  font-family: Arial, Helvetica, sans-serif;
-  background-color: rgb(176, 181, 186);
-}
+    border-radius: 10px;
+    font-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(13, 143, 130);
+    margin: 80px;
+    top: 60%;
+    border: none;
+    box-shadow: 0px 0px 2px 2px rgb(56, 18, 106);
+    padding: 10px;
+  }
 
 #endGame {
-  color: rgb(176, 181, 186);
-  font-size: 25px;
-  font-family: Arial, Helvetica, sans-serif;
-  justify-content: center;
-  padding: 20px;
-  border: 20px;
-  text-align: center;
-}
+    color: rgb(255, 255, 255);
+    font-size: 35px;
+    font-family: Arial, Helvetica, sans-serif;
+    justify-content: center;
+    padding: 20px;
+    text-align: center;
+  }

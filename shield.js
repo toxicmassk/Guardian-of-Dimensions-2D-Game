@@ -1,10 +1,3 @@
-/*
-const shieldImage = new Image();
-shieldImage.src = "shield.png";
-*/
-
-const shieldMusic = new Audio ('./MP3/shield.mp3');
-
 class Shield {
   constructor(game, x, y) {
     this.game = game;

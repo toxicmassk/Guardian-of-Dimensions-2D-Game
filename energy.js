@@ -25,15 +25,6 @@ energy3PurpleImage.src = "energy3purple.png";
 const energy3yellowImage = new Image();
 energy3yellowImage.src = "energy3yellow.png";
 
-const energy1Sound = new Audio ("energyball1.mp3");
-energy1Sound.volume = 0.5;
-
-const energy2Sound = new Audio ("energyball2.mp3");
-energy2Sound.volume = 0.5;
-
-const energy3Sound = new Audio ("energyball3.mp3");
-energy3Sound.volume = 0.5;
-
 
 
 const energyImageList = [
