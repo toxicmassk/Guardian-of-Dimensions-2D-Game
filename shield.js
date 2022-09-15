@@ -1,5 +1,7 @@
+/*
 const shieldImage = new Image();
 shieldImage.src = "shield.png";
+*/
 
 const shieldMusic = new Audio ('./MP3/shield.mp3');
 

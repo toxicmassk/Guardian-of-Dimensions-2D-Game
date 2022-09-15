@@ -1,4 +1,7 @@
-const backgroundMusic = new Audio("./MP3/backgroundSound.mp3");
+const backgroundMusic = new Audio("backgroundSound.mp3");
+backgroundMusic.volume = 0.2;
+
+const shieldSound = new Audio("shieldSound.mp3");
 
 const backgroundImageGreen1 = new Image(); // starting Image
 backgroundImageGreen1.src = "GreenNebula1.png";
@@ -27,17 +30,17 @@ backgroundImagePurple2.src = "PurpleNebula2.png";
 const backgroundImagePurple3 = new Image(); // Image after 160 points
 backgroundImagePurple3.src = "PurpleNebula3.png";
 
-const endGameImage1 = new Image (); // Image 1 Endgame
-endGameImage1.src = "endGame1.png";
+const endGameImage1 = new Image(); // Image 1 Endgame
+endGameImage1.src = "endGame1.jpg";
 
-const endGameImage2 = new Image (); // Image 2 Endgame
-endGameImage2.src = "endGame2.png";
+const endGameImage2 = new Image(); // Image 2 Endgame
+endGameImage2.src = "endGame2.jpg";
 
-const endGameImage3 = new Image (); // Image 3 Endgame
-endGameImage3.src = "endGame3.png";
+const endGameImage3 = new Image(); // Image 3 Endgame
+endGameImage3.src = "endGame3.jpg";
 
-const endGameImage4 = new Image (); // Image 4 Endgame
-endGameImage4.src = "endGame4.png";
+const endGameImage4 = new Image(); // Image 4 Endgame
+endGameImage4.src = "endGame4.jpg";
 
 class Game {
   constructor(gameScreenElement, gameOverScreenElement, winningScreen) {
@@ -49,72 +52,129 @@ class Game {
     this.context = this.canvasElement.getContext("2d");
 
     this.enableControls();
-
-    this.reset();
   }
 
-  levelMusic() {
-    // ### Play level music theme ###
-    backgroundMusic.addEventListener(
-      "ended",
-      function () {
-        this.currentTime = 0;
-        this.play();
-      },
-      false
-    );
+  playLevelMusic() {
     backgroundMusic.play();
+    backgroundMusic.addEventListener("ended", () => {
+      this.currentTime = 0;
+      backgroundMusic.play();
+    }, false);
   }
 
   reset() {
     this.player = new Player(this);
     this.obstacles = [];
-    this.shields = [];
+    // this.shields = [];
     this.energies = [];
 
     this.score = 4;
+    this.shieldEnergy = 0;
 
     this.frame = 0;
+
+    this.playLevelMusic();
   }
 
   enableControls() {
     window.addEventListener("keydown", (event) => {
       switch (event.code) {
         case "ArrowUp":
-          this.player.y -= 10;
+          this.player.y = Math.max(this.player.y - 27, 0);
           break;
         case "ArrowDown":
-          this.player.y += 10;
+          this.player.y = Math.min(
+            this.player.y + 27,
+            this.canvasElement.height - this.player.height
+          );
           break;
         case "ArrowRight":
-          this.player.x += 10;
+          this.player.x = Math.min(
+            this.player.x + 27,
+            this.canvasElement.width - this.player.width
+          );
           break;
         case "ArrowLeft":
-          this.player.x -= 10;
+          this.player.x = Math.max(this.player.x - 27, 0);
           break;
         case "Space":
-          this.fireShield;
+          this.fireShield();
           break;
       }
     });
   }
 
   fireShield() {
-    const shield = new Shield(
-      this,
-      this.player.x + this.player.width,
-      this.player.y + this.player.height
-    );
-    this.shields.push(shield);
+    if (this.shieldEnergy >= 5) {
+      this.shieldEnergy = 0;
+      this.player.shielded = true;
+      setTimeout(() => {
+        this.player.shielded = false;
+        shieldSound.pause();
+      }, 5000);
+      shieldSound.play();
+    }
   }
 
   possiblyAddObstacle() {
     // 5% probability for adding
-    if (Math.random() < 0.005) {
+    /*if (this.game.score < 10) {
+     if (Math.random() < 0.005) {
+        const obstacle = new Obstacle(this);
+        this.obstacles.push(obstacle);
+    } else if (this.game.score < 20) {
+      if (Math.random() < 0.01) {
+        const obstacle = new Obstacle(this);
+        this.obstacles.push(obstacle);
+    } else if (this.game.score < 30) {
+      if (Math.random() < 0.015) {
+        const obstacle = new Obstacle(this);
+        this.obstacles.push(obstacle);
+    } else if (this.game.score < 40) {
+      if (Math.random() < 0.02) {
+        const obstacle = new Obstacle(this);
+        this.obstacles.push(obstacle);
+    } else if (this.game.score < 50) {
+      if (Math.random() < 0.025) {
+        const obstacle = new Obstacle(this);
+        this.obstacles.push(obstacle);
+    } else if (this.game.score < 60) {
+      if (Math.random() < 0.03) {
+        const obstacle = new Obstacle(this);
+        this.obstacles.push(obstacle);
+    } else if (this.game.score < 70) {
+      if (Math.random() < 0.035) {
+        const obstacle = new Obstacle(this);
+        this.obstacles.push(obstacle);
+    } else if (this.game.score < 80) {
+      if (Math.random() < 0.04) {
+        const obstacle = new Obstacle(this);
+        this.obstacles.push(obstacle);
+    } else if (this.game.score < 90) {
+      if (Math.random() < 0.045) {
+        const obstacle = new Obstacle(this);
+        this.obstacles.push(obstacle);
+    } else if (this.game.score < 100) {
+      if (Math.random() < 0.05) {
+        const obstacle = new Obstacle(this);
+        this.obstacles.push(obstacle);
+    } else {
+      if (Math.random() < 0.055) {
+        const obstacle = new Obstacle(this);
+        this.obstacles.push(obstacle);
+    } */
+
+    const probabilityOfObstacleShowingUp = Math.min(this.frame / 150000, 0.02);
+
+    if (Math.random() < probabilityOfObstacleShowingUp) {
       const obstacle = new Obstacle(this);
       this.obstacles.push(obstacle);
     }
   }
+
+  // if (Math.random() < 0.005) {
+  // const obstacle = new Obstacle(this);
+  // this.obstacles.push(obstacle)
 
   possiblyAddEnergy() {
     if (Math.random() < 0.005) {
@@ -123,14 +183,24 @@ class Game {
     }
   }
 
+  /*checkBoundariesOfScreen() {
+    if ((this.x + this.width) >= this.game.canvas.width) {
+      this.x = this.game.canvas.width - this.width;
+    } else if (this.x <= 0) {
+      this.x = 0;
+    }
+  } */
+
   runLogic() {
     this.possiblyAddObstacle();
     for (const obstacle of this.obstacles) {
       obstacle.runLogic();
     }
+    /*
     for (const shield of this.shields) {
       shield.runLogic();
     }
+    */
     this.possiblyAddEnergy();
     for (const energy of this.energies) {
       energy.runLogic();
@@ -138,18 +208,36 @@ class Game {
     if (this.score <= 0) {
       this.lose();
     }
+    if (this.score >= 100) {
+      this.endGame();
+    }
   }
 
   drawScore() {
+    this.context.font = "64px sans-terif";
+    this.context.fillStyle = "white";
+    this.context.fillText(this.score, 64, 96);
+  }
+
+  drawShieldEnergy() {
     this.context.font = "32px sans-terif";
-    this.context.fillStyle = "black";
-    this.context.fillText(this.score, 20, 30);
+    this.context.fillStyle = "white";
+    this.context.fillText("Shield Energy: " + this.shieldEnergy, 200, 96);
   }
 
   draw() {
+    // update frame //
     this.frame++;
 
-    this.context.clearRect(0, 0, 1000, 800);
+    // clear canvas //
+    this.context.clearRect(
+      0,
+      0,
+      this.canvasElement.width,
+      this.canvasElement.height
+    );
+
+    // update background image //
     if (this.score > 0 && this.score < 10) {
       this.context.drawImage(backgroundImageGreen1, 0, 0);
     } else if (this.score >= 10 && this.score < 20) {
@@ -170,20 +258,21 @@ class Game {
       this.context.drawImage(backgroundImagePurple2, 0, 0);
     } else if (this.score >= 90 && this.score < 100) {
       this.context.drawImage(backgroundImagePurple3, 0, 0);
-    } else if (this.score === 100) {
-      this.endGame();
     }
     this.player.draw();
     for (const obstacle of this.obstacles) {
       obstacle.draw();
     }
+    /*
     for (const shield of this.shields) {
       shield.draw();
     }
+    */
     for (const energy of this.energies) {
       energy.draw();
     }
     this.drawScore();
+    this.drawShieldEnergy();
   }
 
   lose() {
@@ -210,5 +299,7 @@ class Game {
     this.gameOverScreenElement.style.display = "none";
     this.winningScreen.style.display = "";
     clearInterval(this.intervalId);
+
+    backgroundMusic.pause();
   }
 }

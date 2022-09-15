@@ -25,6 +25,18 @@ energy3PurpleImage.src = "energy3purple.png";
 const energy3yellowImage = new Image();
 energy3yellowImage.src = "energy3yellow.png";
 
+const energyImageList = [
+  energy1GreenImage,
+  energy1PurpleImage,
+  energy1yellowImage,
+  energy2GreenImage,
+  energy2PurpleImage,
+  energy2yellowImage,
+  energy3GreenImage,
+  energy3PurpleImage,
+  energy3yellowImage,
+];
+
 const energyball1Music = new Audio("./MP3/energyball1.mp3");
 
 const energyball2Music = new Audio("./MP3/energyball2.mp3");
@@ -34,33 +46,63 @@ const energyball3Music = new Audio("./MP3/energyball3.mp3");
 class Energy {
   constructor(game) {
     this.game = game;
-    this.x = Math.random() * 400;
-    this.y = 0;
+    /*
+    if (this.game.score < 10) {
+      this.x = Math.random() * 300;
+    } else if (this.game.score < 20) {
+      this.x = Math.random() * 400;
+    } else if (this.game.score < 30) {
+      this.x = Math.random() * 400;
+    } else if (this.game.score < 40) {
+      this.x = Math.random() * 100;
+    } else if (this.game.score < 50) {
+      this.x = Math.random() * 50;
+    } else if (this.game.score < 60) {
+      this.x = Math.random() * 270;
+    } else if (this.game.score < 70) {
+      this.x = Math.random() * 250;
+    } else if (this.game.score < 80) {
+      this.x = Math.random() * 200;
+    } else if (this.game.score < 90) {
+      this.x = Math.random() * 100;
+    } else if (this.game.score < 100) {
+      this.x = Math.random() * 50;
+    } else {
+      this.x = Math.random() * 40;
+    }
+    */
+    this.x = Math.random() * this.game.canvasElement.width;
+    this.y = -140;
     this.width = 140;
     this.height = 140;
+    this.speed = Math.random() + 0.5 + this.game.score / 10;
+    // this.speed = Math.random() + 2;
+    /*
     if (this.game.score < 10) {
-      this.speed = Math.random() + 0.9;
+      this.speed = Math.random() + 0.5 + 1;
     } else if (this.game.score < 20) {
-      this.speed = Math.random() + 1.3;
+      this.speed = Math.random() + 0.5 + 2;
     } else if (this.game.score < 30) {
-      this.speed = Math.random() + 1.9;
+      this.speed = Math.random() + 0.5 + 3;
     } else if (this.game.score < 40) {
-      this.speed = Math.random() + 2.3;
+      this.speed = Math.random() + 0.5 + 4;
     } else if (this.game.score < 50) {
-      this.speed = Math.random() + 2.7;
+      this.speed = Math.random() + 0.5 + 5;
     } else if (this.game.score < 60) {
-      this.speed = Math.random() + 3.1;
+      this.speed = Math.random() + 0.5 + 6;
     } else if (this.game.score < 70) {
-      this.speed = Math.random() + 3.5;
+      this.speed = Math.random() + 0.5 + 7;
     } else if (this.game.score < 80) {
-      this.speed = Math.random() + 3.9;
+      this.speed = Math.random() + 0.5 + 8;
     } else if (this.game.score < 90) {
-      this.speed = Math.random() + 4.3;
+      this.speed = Math.random() + 0.5 + 9;
     } else if (this.game.score < 100) {
-      this.speed = Math.random() + 4.7;
+      this.speed = Math.random() + 0.5 + 10;
     } else {
-      this.speed = Math.random() + 5.1;
+      this.speed = Math.random() + 0.5 + 11;
     }
+    */
+   this.image = energyImageList[Math.floor(energyImageList.length * Math.random())];
   }
 
   checkForIntersection(item2) {
@@ -71,10 +113,12 @@ class Energy {
       this.y < item2.y + item2.height
     );
   }
+
   disappear() {
     const index = this.game.energies.indexOf(this);
     this.game.energies.splice(index, 1);
   }
+
   runLogic() {
     this.y += this.speed;
 
@@ -82,19 +126,25 @@ class Energy {
       this.game.player
     );
 
-    //console.log(isIntersectingWithPlayer2);//
-
     // const isIntersectingWithEdgeOfScreen = this.y > 800;
 
     if (isIntersectingWithPlayer2) {
-      this.game.score += 1;
+      this.game.score += 2;
       this.disappear();
 
       //this.disappear();
       //if (isIntersectingWithEdgeOfScreen) {
       // this.disappear();
       //}
+
+      if (
+        this.image === energy1PurpleImage || this.image === energy2PurpleImage || this.image === energy3PurpleImage 
+      ) {
+        this.game.shieldEnergy = Math.min(this.game.shieldEnergy + 1, 5);
+      }
     }
+
+    /*
     for (const shield of this.game.shields) {
       const isIntersectingWithShield2 = this.checkForIntersection(shield);
       if (isIntersectingWithShield2) {
@@ -103,13 +153,14 @@ class Energy {
         this.game.score += 1;
       }
     }
+    */
   }
 
   draw() {
     // this.game.context.fillStyle = "blue";
     //this.game.context.fillRect(this.x, this.y, this.width, this.height);
     this.game.context.drawImage(
-      energy1GreenImage,
+      this.image,
       192 * (Math.floor(this.game.frame / 14) % 5),
       0,
       192,
