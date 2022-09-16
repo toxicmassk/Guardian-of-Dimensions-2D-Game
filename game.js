@@ -1,18 +1,15 @@
 // Music Snippets //
-const backgroundMusic = new Audio("backgroundSound.mp3");
-backgroundMusic.volume = 0.2;
+const backgroundMusic = new Audio("Background_new.mp3");
+backgroundMusic.volume = 0.5;
 
-const shieldSound = new Audio("shieldSound.mp3");
+const shieldSound = new Audio("Shield.mp3");
 shieldSound.volume = 0.5;
 
-const energy1Sound = new Audio ("energyball1.mp3");
-energy1Sound.volume = 0.5;
+const winningScreenSound = new Audio("WinningScreen.mp3");
+winningScreenSound.volume = 0.2;
 
-const energy2Sound = new Audio ("energyball2.mp3");
-energy2Sound.volume = 0.5;
-
-const energy3Sound = new Audio ("energyball3.mp3");
-energy3Sound.volume = 0.5;
+const gameOverSound = new Audio("startScreen.pm3");
+gameOverSound.volume = 0.5;
 
 // Images Dimensions//
 const backgroundImageGreen1 = new Image(); // starting Image
@@ -53,8 +50,8 @@ class Game {
 
     this.enableControls();
   }
-  
-// play music // 
+
+  // play music //
   playLevelMusic() {
     backgroundMusic.play();
     backgroundMusic.addEventListener(
@@ -78,28 +75,30 @@ class Game {
     this.frame = 0;
 
     this.playLevelMusic();
+    winningScreenSound.pause();
+    gameOverSound.pause();
   }
 
   enableControls() {
     window.addEventListener("keydown", (event) => {
       switch (event.code) {
         case "ArrowUp":
-          this.player.y = Math.max(this.player.y - 27, 0);
+          this.player.y = Math.max(this.player.y - 45, 0);
           break;
         case "ArrowDown":
           this.player.y = Math.min(
-            this.player.y + 27,
+            this.player.y + 45,
             this.canvasElement.height - this.player.height
           );
           break;
         case "ArrowRight":
           this.player.x = Math.min(
-            this.player.x + 27,
+            this.player.x + 45,
             this.canvasElement.width - this.player.width
           );
           break;
         case "ArrowLeft":
-          this.player.x = Math.max(this.player.x - 27, 0);
+          this.player.x = Math.max(this.player.x - 45, 0);
           break;
         case "Space":
           this.fireShield();
@@ -115,60 +114,13 @@ class Game {
       setTimeout(() => {
         this.player.shielded = false;
         shieldSound.pause();
-      }, 5000);
+      }, 7000);
       shieldSound.play();
     }
   }
 
   possiblyAddObstacle() {
-    // 5% probability for adding
-    /*if (this.game.score < 10) {
-     if (Math.random() < 0.005) {
-        const obstacle = new Obstacle(this);
-        this.obstacles.push(obstacle);
-    } else if (this.game.score < 20) {
-      if (Math.random() < 0.01) {
-        const obstacle = new Obstacle(this);
-        this.obstacles.push(obstacle);
-    } else if (this.game.score < 30) {
-      if (Math.random() < 0.015) {
-        const obstacle = new Obstacle(this);
-        this.obstacles.push(obstacle);
-    } else if (this.game.score < 40) {
-      if (Math.random() < 0.02) {
-        const obstacle = new Obstacle(this);
-        this.obstacles.push(obstacle);
-    } else if (this.game.score < 50) {
-      if (Math.random() < 0.025) {
-        const obstacle = new Obstacle(this);
-        this.obstacles.push(obstacle);
-    } else if (this.game.score < 60) {
-      if (Math.random() < 0.03) {
-        const obstacle = new Obstacle(this);
-        this.obstacles.push(obstacle);
-    } else if (this.game.score < 70) {
-      if (Math.random() < 0.035) {
-        const obstacle = new Obstacle(this);
-        this.obstacles.push(obstacle);
-    } else if (this.game.score < 80) {
-      if (Math.random() < 0.04) {
-        const obstacle = new Obstacle(this);
-        this.obstacles.push(obstacle);
-    } else if (this.game.score < 90) {
-      if (Math.random() < 0.045) {
-        const obstacle = new Obstacle(this);
-        this.obstacles.push(obstacle);
-    } else if (this.game.score < 100) {
-      if (Math.random() < 0.05) {
-        const obstacle = new Obstacle(this);
-        this.obstacles.push(obstacle);
-    } else {
-      if (Math.random() < 0.055) {
-        const obstacle = new Obstacle(this);
-        this.obstacles.push(obstacle);
-    } */
-
-    const probabilityOfObstacleShowingUp = Math.min(this.frame / 150000, 0.02);
+    const probabilityOfObstacleShowingUp = Math.min(this.frame / 150000, 0.01);
 
     if (Math.random() < probabilityOfObstacleShowingUp) {
       const obstacle = new Obstacle(this);
@@ -176,35 +128,19 @@ class Game {
     }
   }
 
-  // if (Math.random() < 0.005) {
-  // const obstacle = new Obstacle(this);
-  // this.obstacles.push(obstacle)
-
   possiblyAddEnergy() {
-    if (Math.random() < 0.005) {
+    const probabilityOfEnergyShowingUp = Math.min(this.frame / 150000, 0.01);
+    if (Math.random() < probabilityOfEnergyShowingUp) {
       const energy = new Energy(this);
       this.energies.push(energy);
     }
   }
-
-  /*checkBoundariesOfScreen() {
-    if ((this.x + this.width) >= this.game.canvas.width) {
-      this.x = this.game.canvas.width - this.width;
-    } else if (this.x <= 0) {
-      this.x = 0;
-    }
-  } */
 
   runLogic() {
     this.possiblyAddObstacle();
     for (const obstacle of this.obstacles) {
       obstacle.runLogic();
     }
-    /*
-    for (const shield of this.shields) {
-      shield.runLogic();
-    }
-    */
     this.possiblyAddEnergy();
     for (const energy of this.energies) {
       energy.runLogic();
@@ -267,11 +203,6 @@ class Game {
     for (const obstacle of this.obstacles) {
       obstacle.draw();
     }
-    /*
-    for (const shield of this.shields) {
-      shield.draw();
-    }
-    */
     for (const energy of this.energies) {
       energy.draw();
     }
@@ -306,5 +237,6 @@ class Game {
     clearInterval(this.intervalId);
 
     backgroundMusic.pause();
+    winningScreenSound.play();
   }
 }

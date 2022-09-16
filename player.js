@@ -22,12 +22,6 @@ life3.src = "3life.png";
 const life4 = new Image();
 life4.src = "4life.png";
 
-// width 960
-// height 576
-// rows 3
-// columns 5
-// item width 960 / 5 = 192
-// item height 576 / 3 = 192
 const shieldImage = new Image();
 shieldImage.src = "shield.png";
 
@@ -41,26 +35,23 @@ class Player {
     this.shielded = false;
   }
 
-  drawShield () {
+  drawShield() {
     this.game.context.drawImage(
-        shieldImage,
-        192 * (Math.floor(this.game.frame / 3) % 5),
-        0,
-        192,
-        192,
-        this.x - this.width / 2,
-        this.y - this.height / 2,
-        this.width * 2,
-        this.height * 2
+      shieldImage,
+      192 * (Math.floor(this.game.frame / 3) % 5),
+      0,
+      192,
+      192,
+      this.x - this.width / 2,
+      this.y - this.height / 2,
+      this.width * 2,
+      this.height * 2
     );
   }
 
   draw() {
-    //this.game.context.fillStyle = 'purple'
-    //this.game.context.fillRect(this.x, this.y, this.width, this.height);
-
     if (this.shielded) {
-        this.drawShield();
+      this.drawShield();
     }
 
     this.game.context.drawImage(
@@ -76,12 +67,12 @@ class Player {
     );
 
     if (this.shielded) {
-        this.game.context.save();
+      this.game.context.save();
 
-        this.game.context.globalAlpha = 0.2;
-        this.drawShield();
+      this.game.context.globalAlpha = 0.2;
+      this.drawShield();
 
-        this.game.context.restore();
+      this.game.context.restore();
     }
   }
 }

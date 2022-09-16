@@ -13,8 +13,6 @@ class Shield {
     this.game.shields.splice(index, 1);
   }
 
-  // runLogic() {}
-
   draw() {
     this.game.context.fillStyle = "clue";
     this.game.context.fillRect(this.x, this.y, this.width, this.height);
