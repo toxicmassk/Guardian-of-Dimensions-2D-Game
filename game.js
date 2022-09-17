@@ -3,7 +3,7 @@ const backgroundMusic = new Audio("Background_new.mp3");
 backgroundMusic.volume = 0.5;
 
 const shieldSound = new Audio("Shield.mp3");
-shieldSound.volume = 0.5;
+shieldSound.volume = 0.7;
 
 const winningScreenSound = new Audio("WinningScreen.mp3");
 winningScreenSound.volume = 0.2;
@@ -154,15 +154,15 @@ class Game {
   }
 
   drawScore() {
-    this.context.font = "32px Arial, Helvetica, sans-serif";
+    this.context.font = "27px Arial, Helvetica, sans-serif";
     this.context.fillStyle = "white";
-    this.context.fillText("Score: " + this.score, 50, 70);
+    this.context.fillText("Score: " + this.score, 50, 50);
   }
-
+ 
   drawShieldEnergy() {
-    this.context.font = "32px Arial, Helvetica, sans-serif";
-    this.context.fillStyle = "white";
-    this.context.fillText("Shield Energy: " + this.shieldEnergy, 50, 110);
+    this.context.font = "25px Arial, Helvetica, sans-serif";
+    this.context.fillStyle = "white"; 
+    this.context.fillText("Shield Energy: " + this.shieldEnergy, 50, 80);
   }
 
   draw() {

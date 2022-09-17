@@ -26,17 +26,6 @@ energy3PurpleImage.src = "energy3purple.png";
 const energy3yellowImage = new Image();
 energy3yellowImage.src = "energy3yellow.png";
 
-// energy Sounds //
-
-const energy1Sound = new Audio("energyball1.mp3");
-energy1Sound.volume = 0.5;
-
-const energy2Sound = new Audio("energyball2.mp3");
-energy2Sound.volume = 0.5;
-
-const energy3Sound = new Audio("energyball3.mp3");
-energy3Sound.volume = 0.5;
-
 const energyImageList = [
   energy1GreenImage,
   energy1PurpleImage,
@@ -49,6 +38,23 @@ const energyImageList = [
   energy3yellowImage,
 ];
 
+// energy Sounds //
+
+const energy1Sound = new Audio("energyball1.mp3");
+energy1Sound.volume = 0.5;
+
+const energy2Sound = new Audio("energyball2.mp3");
+energy2Sound.volume = 0.5;
+
+const energy3Sound = new Audio("energyball3.mp3");
+energy3Sound.volume = 0.5;
+
+const energySoundList = [
+  energy1Sound,
+  energy2Sound,
+  energy3Sound
+];
+
 class Energy {
   constructor(game) {
     this.game = game;
@@ -56,7 +62,7 @@ class Energy {
     this.y = -160;
     this.width = 160;
     this.height = 160;
-    this.speed = Math.random() + 0.5 + this.game.frame / 2000;
+    this.speed = Math.random() + 0.7 + this.game.frame / 1000;
     this.image =
     energyImageList[Math.floor(energyImageList.length * Math.random())];
   }

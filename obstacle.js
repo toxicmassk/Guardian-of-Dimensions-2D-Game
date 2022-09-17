@@ -9,6 +9,8 @@ const obstacleImageList = [
   obstacleImageLight
 ];
 
+const obstacleSound = new Audio("obstacle.mp3");
+
 class Obstacle {
   constructor(game) {
     this.game = game;
@@ -16,7 +18,7 @@ class Obstacle {
     this.y = -70;
     this.width = 70;
     this.height = 70;
-    this.speed = Math.random() + 0.5 + this.game.frame / 2000;
+    this.speed = Math.random() + 0.7 + this.game.frame / 1000;
     this.image =
     obstacleImageList[Math.floor(obstacleImageList.length * Math.random())];
   }
@@ -48,6 +50,7 @@ class Obstacle {
     if (isIntersectingWithPlayer) {
       if (this.game.player.shielded === false) {
         this.game.score -= 2;
+        obstacleSound.play();
       }
 
       this.disappear();
@@ -60,7 +63,7 @@ class Obstacle {
 
   draw() {
     this.game.context.drawImage(
-      obstacleImage,
+      this.image,
       128 * (Math.floor(this.game.frame / 14) % 8),
       0,
       128,
