@@ -8,7 +8,7 @@ shieldSound.volume = 0.5;
 const winningScreenSound = new Audio("WinningScreen.mp3");
 winningScreenSound.volume = 0.2;
 
-const gameOverSound = new Audio("startScreen.pm3");
+const gameOverSound = new Audio("startScreen.mp3");
 gameOverSound.volume = 0.5;
 
 // Images Dimensions//
@@ -216,6 +216,15 @@ class Game {
     this.winningScreen.style.display = "none";
     clearInterval(this.intervalId);
     backgroundMusic.pause();
+    gameOverSound.play();
+    gameOverSound.addEventListener(
+      "ended",
+      () => {
+        this.currentTime = 0;
+        gameOverSound.play();
+      },
+      false
+    );
   }
 
   start() {
@@ -238,5 +247,13 @@ class Game {
 
     backgroundMusic.pause();
     winningScreenSound.play();
+    winningScreenSound.addEventListener(
+      "ended",
+      () => {
+        this.currentTime = 0;
+        winningScreenSound.play();
+      },
+      false
+    );
   }
 }

@@ -63,6 +63,7 @@ body {
   align-items: center;
   background-size: cover;
   border: 20px;
+  border-top: dashed rgb(20, 90, 90);
 }
 #instruction {
   color: rgb(245, 245, 245);
